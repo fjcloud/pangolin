@@ -39,4 +39,8 @@ COPY public ./public
 RUN chown -R 1001:1001 /app
 USER 1001
 
+EXPOSE 3000
+EXPOSE 3001
+EXPOSE 3002
+
 CMD ["npm", "run", "start:sqlite"]
