@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM registry.redhat.io/ubi8/nodejs-20 AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ RUN npx drizzle-kit generate --dialect sqlite --schema ./server/db/sqlite/schema
 RUN npm run build:sqlite
 RUN npm run build:cli
 
-FROM node:20-alpine AS runner
+FROM registry.redhat.io/ubi8/nodejs-20 AS runner
 
 WORKDIR /app
 
