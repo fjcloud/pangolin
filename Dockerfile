@@ -21,9 +21,6 @@ USER 0
 
 WORKDIR /app
 
-# Curl used for the health checks
-RUN apk add --no-cache curl
-
 # COPY package.json package-lock.json ./
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force
