@@ -1,4 +1,5 @@
 FROM registry.redhat.io/ubi8/nodejs-20 AS builder
+USER 0
 
 WORKDIR /app
 
@@ -16,6 +17,7 @@ RUN npm run build:sqlite
 RUN npm run build:cli
 
 FROM registry.redhat.io/ubi8/nodejs-20 AS runner
+USER 0
 
 WORKDIR /app
 
@@ -37,5 +39,7 @@ RUN chmod +x /usr/local/bin/pangctl ./dist/cli.mjs
 COPY server/db/names.json ./dist/names.json
 
 COPY public ./public
+RUN chown -R 1001:1001 /app
+USER 1001
 
 CMD ["npm", "run", "start:sqlite"]
